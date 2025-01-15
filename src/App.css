@@ -1,0 +1,10 @@
+:root {
+  --text: #333;
+  --background: #fff;
+  --cell-size: 4rem;
+  --piece-size: 3rem;
+}
+.App {
+  font: 1rem/1.5 sans-serif;
+  text-align: center;
+}

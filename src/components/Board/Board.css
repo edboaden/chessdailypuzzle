@@ -1,0 +1,17 @@
+/* .board {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 20px auto;
+  width: calc(50px * 8);
+} */
+
+.board {
+  border: 2px solid var(--text-color);
+  margin: 1rem auto; /** centered */
+  /* width: calc(100vh * 0.9); */
+  /* height: calc(100vh * 0.85); */
+  width: var(--cell-size);
+  height: var(--cell-size);
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+}

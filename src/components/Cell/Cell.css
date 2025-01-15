@@ -1,0 +1,19 @@
+.cell {
+  text-align: center;
+  /* padding: 0.25rem 0.35rem; */
+  color: pink;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: var(--cell-size);
+  height: var(--cell-size);
+  font-size: var(--piece-size);
+}
+
+.dark {
+  background-color: var(--color-text);
+}
+
+.light {
+  background-color: var(--color-background);
+}
