@@ -10,26 +10,33 @@ function App() {
       <AppContext.Consumer>
         {({ puzzle, formatDate, getColorToMove, getSolution }) => (
           <main className="App">
-            <h1>Daily Chess Puzzle • {formatDate(puzzle.publish_time)}</h1>
             {puzzle && (
               <>
-                {/* <p>{formatDate(puzzle.publish_time)}</p> */}
+                {/* <h1>Daily Chess Puzzle • {formatDate(puzzle.publish_time)}</h1> */}
+
                 <Game
                   fen={puzzle.fen}
                   colorToMove={getColorToMove(puzzle.fen)}
                 />
-                <p>{getColorToMove(puzzle.fen)} to move</p>
-                <h2>Solution</h2>
-                <p>{getSolution(puzzle.pgn)}</p>
-                <p>
-                  <a
-                    href={puzzle.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    View Puzzle on Chess.com
-                  </a>
-                </p>
+
+                <section>
+                  <h1>Daily Chess Puzzle</h1>
+                  <h2>{formatDate(puzzle.publish_time)}</h2>
+                  <p>{getColorToMove(puzzle.fen)} to move</p>
+                  <div className="solution">
+                    <h3>Solution</h3>
+                    <p>{getSolution(puzzle.pgn)}</p>
+                  </div>
+                  <p>
+                    <a
+                      href={puzzle.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      View Puzzle on Chess.com
+                    </a>
+                  </p>
+                </section>
               </>
             )}
           </main>

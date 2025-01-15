@@ -2,7 +2,7 @@
   outline: 4px solid var(--color-primary);
   display: flex;
   flex-wrap: wrap;
-  margin: 1rem auto; /** centered */
+  margin: 2rem auto; /** centered */
   width: calc(8 * var(--cell-size));
 }
 
