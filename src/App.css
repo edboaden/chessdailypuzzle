@@ -1,10 +1,56 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&display=swap");
+
 :root {
-  --text: #333;
-  --background: #fff;
+  --color-primary: #ff0000;
+  --color-background: #f3f1ec;
+  --color-secondary: #ffc0d0;
   --cell-size: 4rem;
-  --piece-size: 3rem;
+  --piece-size: 4rem;
+  --font-family: "Roboto Mono", monospace;
 }
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-primary: #ffc0d0;
+    --color-background: #1c1520;
+    --color-secondary: #43334d;
+  }
+}
+
+body {
+  background: var(--color-background);
+  color: var(--color-primary);
+  font: 1rem/1.5 var(--font-family);
+}
+
 .App {
-  font: 1rem/1.5 sans-serif;
   text-align: center;
+}
+
+a {
+  color: var(--color-primary);
+}
+
+h1 {
+  font-weight: normal;
+  font-size: 1rem;
+  margin: 2rem 0;
+}
+
+h2 {
+  font-weight: normal;
+  font-size: 1rem;
+  margin: 1rem 0 0;
+}
+
+h2::after {
+  content: ":";
+}
+
+p {
+  margin: 2rem 0;
+}
+
+h2 + p {
+  margin-top: 0;
 }

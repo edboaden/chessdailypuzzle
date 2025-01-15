@@ -3,8 +3,8 @@ import { Chess } from "chess.js";
 import { createBoard } from "../../functions";
 import Board from "../Board/Board";
 
-const Game = ({ fen }) => {
-  const { current: chess } = useRef(new Chess(fen));
+const Game = ({ fen, colorToMove }) => {
+  useRef(new Chess(fen));
   const [board, setBoard] = useState(createBoard(fen));
 
   useEffect(() => {
@@ -13,7 +13,7 @@ const Game = ({ fen }) => {
 
   return (
     <div className="Game">
-      <Board cells={board} />
+      <Board cells={board} colorToMove={colorToMove} />
     </div>
   );
 };
