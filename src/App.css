@@ -12,8 +12,8 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --color-primary: #ffc0d0;
-    --color-background: #1c1520;
-    --color-secondary: #43334d;
+    --color-background: #161520;
+    --color-secondary: #37334d;
   }
 }
 
@@ -28,6 +28,10 @@ body {
   flex-wrap: wrap;
   justify-content: center;
   gap: 2rem;
+}
+
+.text-section {
+  width: calc(5 * var(--cell-size));
 }
 
 a {

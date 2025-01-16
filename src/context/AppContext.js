@@ -6,7 +6,7 @@ export const AppProvider = ({ children }) => {
   const [puzzle, setPuzzle] = useState(null);
 
   useEffect(() => {
-    fetch("https://api.chess.com/pub/puzzle")
+    fetch("https://api.chess.com/pub/puzzle/random")
       .then((response) => response.json())
       .then((data) => setPuzzle(data))
       .catch((error) => console.error("Error fetching puzzle:", error));

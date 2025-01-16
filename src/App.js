@@ -19,14 +19,16 @@ function App() {
                   colorToMove={getColorToMove(puzzle.fen)}
                 />
 
-                <section>
+                <section className="text-section">
                   <h1>Daily Chess Puzzle</h1>
                   <h2>{formatDate(puzzle.publish_time)}</h2>
                   <p>{getColorToMove(puzzle.fen)} to move</p>
-                  <div className="solution">
-                    <h3>Solution</h3>
-                    <p>{getSolution(puzzle.pgn)}</p>
-                  </div>
+                  {getSolution(puzzle.pgn) && (
+                    <div className="solution">
+                      <h3>Solution</h3>
+                      <p>{getSolution(puzzle.pgn)}</p>
+                    </div>
+                  )}
                   <p>
                     <a
                       href={puzzle.url}
