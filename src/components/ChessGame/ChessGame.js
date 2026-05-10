@@ -5,7 +5,7 @@ import "./ChessGame.css";
 
 const ChessGame = ({ puzzle }) => {
   const chessRef = useRef(null);
-  const [position, setPosition] = useState(puzzle.fen);
+  const [position, setPosition] = useState(puzzle.fen.split(" ")[0]);
   const [moveIndex, setMoveIndex] = useState(0);
   const [solutionMoves, setSolutionMoves] = useState([]);
   const [playerColor, setPlayerColor] = useState("white");
@@ -27,7 +27,7 @@ const ChessGame = ({ puzzle }) => {
 
     // Initialize game chess instance from puzzle FEN
     chessRef.current = new Chess(puzzle.fen);
-    setPosition(puzzle.fen);
+    setPosition(puzzle.fen.split(" ")[0]);
     setMoveIndex(0);
     setStatus("idle");
     setMessage("Find the best move!");
@@ -70,7 +70,7 @@ const ChessGame = ({ puzzle }) => {
 
       // Correct move
       const nextMoveIndex = moveIndex + 1;
-      setPosition(chess.fen());
+      setPosition(chess.fen().split(" ")[0]);
       setMoveIndex(nextMoveIndex);
 
       if (nextMoveIndex >= solutionMoves.length) {
@@ -83,7 +83,7 @@ const ChessGame = ({ puzzle }) => {
       setTimeout(() => {
         const opponentSan = solutionMoves[nextMoveIndex];
         chess.move(opponentSan);
-        setPosition(chess.fen());
+        setPosition(chess.fen().split(" ")[0]);
         const afterOpponent = nextMoveIndex + 1;
         setMoveIndex(afterOpponent);
 
@@ -106,7 +106,7 @@ const ChessGame = ({ puzzle }) => {
     // Reset to puzzle start
     const chess = new Chess(puzzle.fen);
     chessRef.current = chess;
-    setPosition(puzzle.fen);
+    setPosition(puzzle.fen.split(" ")[0]);
     setStatus("revealed");
     setMessage("Solution:");
     setShowSolution(true);
@@ -115,7 +115,7 @@ const ChessGame = ({ puzzle }) => {
     solutionMoves.forEach((san, i) => {
       const id = setTimeout(() => {
         chess.move(san);
-        setPosition(chess.fen());
+        setPosition(chess.fen().split(" ")[0]);
         setMoveIndex(i + 1);
       }, (i + 1) * 800);
       revealTimeouts.current.push(id);
@@ -126,7 +126,7 @@ const ChessGame = ({ puzzle }) => {
     revealTimeouts.current.forEach(clearTimeout);
     revealTimeouts.current = [];
     chessRef.current = new Chess(puzzle.fen);
-    setPosition(puzzle.fen);
+    setPosition(puzzle.fen.split(" ")[0]);
     setMoveIndex(0);
     setStatus("idle");
     setMessage("Find the best move!");
@@ -139,13 +139,15 @@ const ChessGame = ({ puzzle }) => {
     <div className="chess-game">
       <div className={`board-wrapper ${status === "incorrect" ? "shake" : ""}`}>
         <Chessboard
-          position={position}
-          onPieceDrop={onDrop}
-          boardOrientation={playerColor}
-          arePiecesDraggable={status !== "solved" && status !== "revealed"}
-          customBoardStyle={{
-            borderRadius: "4px",
-            boxShadow: "0 2px 10px rgba(0,0,0,0.3)",
+          options={{
+            position,
+            onPieceDrop: onDrop,
+            boardOrientation: playerColor,
+            allowDragging: status !== "solved" && status !== "revealed",
+            boardStyle: {
+              borderRadius: "4px",
+              boxShadow: "0 2px 10px rgba(0,0,0,0.3)",
+            },
           }}
         />
       </div>
