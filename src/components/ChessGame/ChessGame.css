@@ -1,0 +1,88 @@
+.chess-game {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  max-width: 480px;
+}
+
+.board-wrapper {
+  width: 100%;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-6px); }
+  40% { transform: translateX(6px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(4px); }
+}
+
+.board-wrapper.shake {
+  animation: shake 0.4s ease-in-out;
+}
+
+.feedback {
+  min-height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 20px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  width: 100%;
+  text-align: center;
+  background: transparent;
+  color: var(--color-text, #333);
+  transition: background 0.2s, color 0.2s;
+}
+
+.feedback.incorrect {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.feedback.solved {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.feedback.revealed {
+  background: #e0f2fe;
+  color: #0369a1;
+}
+
+.game-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.btn {
+  padding: 8px 24px;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.btn:hover {
+  opacity: 0.85;
+}
+
+.btn-secondary {
+  background: #e5e7eb;
+  color: #374151;
+}
+
+.turn-label {
+  font-size: 0.85rem;
+  color: var(--color-text-muted, #666);
+  margin: 0;
+}

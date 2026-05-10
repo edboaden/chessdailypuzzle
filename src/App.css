@@ -27,7 +27,20 @@ body {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  align-items: flex-start;
   gap: 2rem;
+  padding: 2rem;
+  min-height: 100vh;
+}
+
+.loading-msg,
+.error-msg {
+  margin: 4rem auto;
+  font-size: 1rem;
+}
+
+.error-msg {
+  color: #b91c1c;
 }
 
 .text-section {

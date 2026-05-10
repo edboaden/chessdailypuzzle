@@ -4,45 +4,30 @@ export const AppContext = createContext();
 
 export const AppProvider = ({ children }) => {
   const [puzzle, setPuzzle] = useState(null);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch("https://api.chess.com/pub/puzzle/random")
+    fetch("https://api.chess.com/pub/puzzle")
       .then((response) => response.json())
       .then((data) => setPuzzle(data))
-      .catch((error) => console.error("Error fetching puzzle:", error));
+      .catch((err) => {
+        console.error("Error fetching puzzle:", err);
+        setError("Failed to load today's puzzle.");
+      });
   }, []);
 
   const formatDate = (unixTimestamp) => {
     if (!unixTimestamp) return "";
-    const date = new Date(unixTimestamp * 1000); // Convert to milliseconds
-    const options = {
+    const date = new Date(unixTimestamp * 1000);
+    return new Intl.DateTimeFormat("en-GB", {
       year: "numeric",
       month: "short",
       day: "numeric",
-    };
-    return new Intl.DateTimeFormat("en-GB", options).format(date);
-  };
-
-  const [colorToMove, setColorToMove] = useState("White");
-  const getColorToMove = (string) => {
-    const parts = string.split(" ");
-    const colorChar = parts.length > 1 ? parts[1][0] : "";
-    if (colorChar === "b") {
-      setColorToMove("Black");
-    }
-    return colorToMove;
-  };
-
-  const getSolution = (pgn) => {
-    const splitter = "1...";
-    const parts = pgn.split(splitter);
-    return parts.length > 1 ? splitter + parts[1] : "";
+    }).format(date);
   };
 
   return (
-    <AppContext.Provider
-      value={{ puzzle, formatDate, getColorToMove, getSolution }}
-    >
+    <AppContext.Provider value={{ puzzle, error, formatDate }}>
       {children}
     </AppContext.Provider>
   );
