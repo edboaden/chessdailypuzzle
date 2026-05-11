@@ -1,10 +1,10 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import "./reset.css";
 import "./App.css";
 import ChessGame from "./components/ChessGame/ChessGame";
 import { AppProvider, AppContext } from "./context/AppContext";
 
-function AppContent() {
+function AppContent({ darkMode, toggleDarkMode }) {
   const { puzzle, error, formatDate } = useContext(AppContext);
 
   if (error) {
@@ -17,7 +17,7 @@ function AppContent() {
 
   return (
     <main className="App">
-      <ChessGame puzzle={puzzle} />
+      <ChessGame puzzle={puzzle} darkMode={darkMode} />
 
       <section className="text-section">
         <h1>Daily Chess Puzzle</h1>
@@ -27,15 +27,26 @@ function AppContent() {
             View on Chess.com
           </a>
         </p>
+        <button className="btn-dark-mode" onClick={toggleDarkMode}>
+          {darkMode ? "Light mode" : "Dark mode"}
+        </button>
       </section>
     </main>
   );
 }
 
 function App() {
+  const [darkMode, setDarkMode] = useState(
+    () => window.matchMedia("(prefers-color-scheme: dark)").matches
+  );
+
+  useEffect(() => {
+    document.body.classList.toggle("dark", darkMode);
+  }, [darkMode]);
+
   return (
     <AppProvider>
-      <AppContent />
+      <AppContent darkMode={darkMode} toggleDarkMode={() => setDarkMode((d) => !d)} />
     </AppProvider>
   );
 }

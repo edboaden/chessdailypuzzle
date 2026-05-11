@@ -3,7 +3,7 @@ import { Chessboard } from "react-chessboard";
 import { Chess } from "chess.js";
 import "./ChessGame.css";
 
-const ChessGame = ({ puzzle }) => {
+const ChessGame = ({ puzzle, darkMode }) => {
   const chessRef = useRef(null);
   const [position, setPosition] = useState(puzzle.fen.split(" ")[0]);
   const [moveIndex, setMoveIndex] = useState(0);
@@ -144,6 +144,8 @@ const ChessGame = ({ puzzle }) => {
             onPieceDrop: onDrop,
             boardOrientation: playerColor,
             allowDragging: status !== "solved" && status !== "revealed",
+            lightSquareStyle: { backgroundColor: "#ffc0d0" },
+            darkSquareStyle: { backgroundColor: darkMode ? "#37334d" : "#ff0000" },
             boardStyle: {
               borderRadius: "4px",
               boxShadow: "0 2px 10px rgba(0,0,0,0.3)",
