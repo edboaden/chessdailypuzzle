@@ -1,4 +1,6 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+"use client";
+
+import { useState, useEffect, useRef, useCallback } from "react";
 import { Chessboard } from "react-chessboard";
 import { Chess } from "chess.js";
 import "./ChessGame.css";
@@ -15,10 +17,11 @@ const ChessGame = ({ puzzle, darkMode }) => {
   const revealTimeouts = useRef([]);
 
   useEffect(() => {
-    // Parse solution moves from PGN
+    // Re-initializes all game state whenever a new puzzle prop arrives.
     const temp = new Chess();
     temp.loadPgn(puzzle.pgn);
     const moves = temp.history();
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setSolutionMoves(moves);
 
     // Determine player color from FEN

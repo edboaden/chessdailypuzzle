@@ -1,6 +1,6 @@
-import React, { useContext, useState, useEffect } from "react";
-import "./reset.css";
-import "./App.css";
+"use client";
+
+import { useContext, useState, useEffect } from "react";
 import ChessGame from "./components/ChessGame/ChessGame";
 import { AppProvider, AppContext } from "./context/AppContext";
 
@@ -12,7 +12,7 @@ function AppContent({ darkMode, toggleDarkMode }) {
   }
 
   if (!puzzle) {
-    return <main className="App"><p className="loading-msg">Loading today's puzzle…</p></main>;
+    return <main className="App"><p className="loading-msg">Loading today&apos;s puzzle…</p></main>;
   }
 
   return (
@@ -35,10 +35,15 @@ function AppContent({ darkMode, toggleDarkMode }) {
   );
 }
 
-function App() {
-  const [darkMode, setDarkMode] = useState(
-    () => window.matchMedia("(prefers-color-scheme: dark)").matches
-  );
+export default function Page() {
+  const [darkMode, setDarkMode] = useState(false);
+
+  useEffect(() => {
+    // Read once on mount rather than at initial render, since window is
+    // unavailable during Next.js's server render of this client component.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setDarkMode(window.matchMedia("(prefers-color-scheme: dark)").matches);
+  }, []);
 
   useEffect(() => {
     document.body.classList.toggle("dark", darkMode);
@@ -50,5 +55,3 @@ function App() {
     </AppProvider>
   );
 }
-
-export default App;
